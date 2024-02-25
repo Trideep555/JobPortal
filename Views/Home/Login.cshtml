@@ -1,0 +1,20 @@
+﻿@model LoginVM
+
+<div class="login-container">
+    <div class="card">
+        <h2 class="login-head">DreamCatcher</h2>
+        <form method="post" class="login-form">
+            <label for="username" class="login-label">Username</label>
+            <input type="text" class="login-input" id="username" placeholder="Enter your username" asp-for="Username">
+            <span asp-validation-for="Username" class="text-danger"></span>
+            <label for="password" class="login-label">Password</label>
+            <input type="password" class="login-input" id="password" placeholder="Enter your password" asp-for="Password">
+            <span asp-validation-for="Password" class="text-danger" ></span>
+            <button type="submit" class="login-btn text-black">Login</button>
+            <div class="d-flex small mt-2 justify-content-center">First Time to DreamCatcher &nbsp; <a asp-asp-controller="Home" asp-action="Register">Sign Up</a></div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
