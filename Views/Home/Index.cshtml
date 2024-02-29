@@ -68,7 +68,7 @@
                     Our Commitment:
                 </h3>
                 <p>
-                    At ASP.NET Core MVC Job Portal, we are committed to excellence, innovation, and integrity in everything we do. We prioritize the needs of our users, continually enhancing our platform with the latest features and technologies to deliver the best possible experience.
+                    At DreamCatcher, we are committed to excellence, innovation, and integrity in everything we do. We prioritize the needs of our users, continually enhancing our platform with the latest features and technologies to deliver the best possible experience.
                     </p>
                     <h3>
                     Join Us:
@@ -97,62 +97,29 @@
         <h2 class="text-center mb-4 seven">Top Jobs</h2>
         <div class="swiper">
             <div class="swiper-wrapper">
-                <!-- Job Card 1 -->
+                @foreach(var i in ViewBag.jobs){
                 <div class="swiper-slide">
-                    <div class="card w-30">
-                        <img src="https://picsum.photos/400/300" class="card-img-top" alt="Job 1">
+                    <div class="card w-30 position-relative">
+                            <img src="~/@i.Logo" class="card-img-top" alt="Job 1" style="height:50%;mix-blend-mode: multiply;">
                         <div class="card-body">
-                            <h5 class="card-title">Job Title 1</h5>
-                            <p class="card-text">Job Description 1</p>
-                        </div>
+                                <h5 class="job-card-title">@i.JobTitle</h5>
+                                
+                                <div class="job-detail-buttons">
+                                    <button class="search-buttons detail-button">@i.Jobtype</button>
+                                    
+                                    <button class="search-buttons detail-button">@i.JobExperience</button>
+                                </div>
+                                <div class="job-card-buttons position-fixed" style="bottom: 5%;left: 10%">
+                                    <button class="search-buttons card-buttons" style="width:80%">Apply Now</button>
+                                    
+                                </div>
+                           
+                                
+                          </div>
                     </div>
                 </div>
-                <!-- Job Card 2 -->
-                <div class="swiper-slide">
-                    <div class="card">
-                        <img src="https://picsum.photos/400/300" class="card-img-top" alt="Job 2">
-                        <div class="card-body">
-                            <h5 class="card-title">Job Title 2</h5>
-                            <p class="card-text">Job Description 2</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="card">
-                        <img src="https://picsum.photos/400/300" class="card-img-top" alt="Job 2">
-                        <div class="card-body">
-                            <h5 class="card-title">Job Title 3</h5>
-                            <p class="card-text">Job Description 2</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="card">
-                        <img src="https://picsum.photos/400/300" class="card-img-top" alt="Job 2">
-                        <div class="card-body">
-                            <h5 class="card-title">Job Title 4</h5>
-                            <p class="card-text">Job Description 2</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="card">
-                        <img src="https://picsum.photos/400/300" class="card-img-top" alt="Job 2">
-                        <div class="card-body">
-                            <h5 class="card-title">Job Title 5</h5>
-                            <p class="card-text">Job Description 2</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="card">
-                        <img src="https://picsum.photos/400/300" class="card-img-top" alt="Job 2">
-                        <div class="card-body">
-                            <h5 class="card-title">Job Title 5</h5>
-                            <p class="card-text">Job Description 2</p>
-                        </div>
-                    </div>
-                </div>
+                }
+               
              
             </div>
             <!-- Add Pagination -->
@@ -167,15 +134,11 @@
     <div class="container">
         <h2 class="text-center mb-4 seven">Associated Companies</h2>
         <div class="d-flex flex-wrap  gap-4">
-            <img src="https://images.pexels.com/photos/6062496/pexels-photo-6062496.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="rounded-circle" alt="icon" width="200px" height="200px">
-            <img src="https://images.pexels.com/photos/6062496/pexels-photo-6062496.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="rounded-circle" alt="icon" width="200px" height="200px">
-            <img src="https://images.pexels.com/photos/6062496/pexels-photo-6062496.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="rounded-circle" alt="icon" width="200px" height="200px">
-             <img src="https://images.pexels.com/photos/6062496/pexels-photo-6062496.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="rounded-circle" alt="icon" width=
-"200px" height="200px">
-            <img src="https://images.pexels.com/photos/6062496/pexels-photo-6062496.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="rounded-circle" alt="icon" width="200px" height="200px">
-            <img src="https://images.pexels.com/photos/6062496/pexels-photo-6062496.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="rounded-circle" alt="icon" width="200px" height="200px">
-            <img src="https://images.pexels.com/photos/6062496/pexels-photo-6062496.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="rounded-circle" alt="icon" width="200px" height="200px">
-            <img src="https://images.pexels.com/photos/6062496/pexels-photo-6062496.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="rounded-circle" alt="icon" width="200px" height="200px">
+             @foreach (var i in ViewBag.logos)
+            {
+                <img src="/@i" class="rounded-circle" alt="icon" width="200px" height="200px" style="mix-blend-mode: multiply;">
+            } 
+            
         </div>
     </div>
 </section>

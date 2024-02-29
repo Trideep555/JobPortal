@@ -8,18 +8,22 @@ namespace DREAMCatcher.Models
     {
         public int Id { get; set; }
         [Required]
+        public int CompanyId { get; set; }
+        [Required]
         public string? JobTitle { get; set; }
+        [Required]
+        public string? JobDescription { get; set;}
         [Required]
         public string? JobRole { get; set; }
         [AllowNull]
-        public int JobExperience { get; set; }
+        public string? JobExperience { get; set; }
         [Required]
         public string? JobSkill { get; set; }
         [Required]
         
         public string? Jobtype { get; set; }
         [AllowNull]
-        public int Jobsalary { get; set; }
+        public double Jobsalary { get; set; }
         [Required]
         public string? Date { get; set;}
         [Required]
@@ -29,5 +33,7 @@ namespace DREAMCatcher.Models
 
         [DefaultValue(0)]
         public int Total_select { get; set; }
+        [DefaultValue('Y')]
+        public char status { get; set; }
     }
 }

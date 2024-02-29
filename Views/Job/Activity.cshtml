@@ -1,9 +1,8 @@
-﻿<div style="height: 60vh">
-    <div class="d-flex justify-content-center text-bold text-xl ">
-        Activity
-    </div>
-    <div class="d-flex justify-content-end mr-2">
-        <button class="btn d-inline-flex btn-sm btn-primary mx-1 modal-toggler" data-toggle="modal" type="button" data-target="#EmployerModal">
+﻿@model Job
+<div style="height: 60vh">
+    
+    <div class="d-flex justify-content-end mr-4 mt-2">
+        <button class="btn d-inline-flex btn-sm btn-primary mx-1 my-2 modal-toggler" data-toggle="modal" type="button" data-target="#EmployerModal">
             <span class=" pe-2">
                 <i class="bi bi-plus"></i>
             </span>
@@ -14,168 +13,121 @@
         
         <ul>
             <li class="tab-item active" target-wrapper="first-dynamic-table" target-tab="home">Active Jobs</li>
-            <li class="tab-item" target-wrapper="first-dynamic-table" target-tab="about">Applicants</li>
-            <li class="tab-item" target-wrapper="first-dynamic-table" target-tab="faqs">History</li>
+            <li class="tab-item" target-wrapper="first-dynamic-table" target-tab="faqs">Applicants</li>
+            <li class="tab-item" target-wrapper="first-dynamic-table" target-tab="history">History</li>
             
         </ul>
-        <div id="first-dynamic-table">
+        <div id="first-dynamic-table" style="margin-left:-5%;width: 83vw">
             <div class="tab-content active" id="home">
                 <div class="table-responsive">
                     <table class="table table-hover table-nowrap">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Date of Joining</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Jobs Applied</th>
-                                <th scope="col">Phone</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Date of Post</th>
+                                <th scope="col">Requirement</th>
+                                <th scope="col">Selected</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach(var i in ViewBag.jobs){
                             <tr>
                                 <td>
-                                    <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
+                                    
                                     <a class="text-heading font-semibold" href="#">
-                                        Robert Fox
+                                            @i.JobTitle
                                     </a>
                                 </td>
                                 <td>
-                                    Feb 15, 2021
+                                    @i.JobRole
                                 </td>
                                 <td>
-                                    <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" class="avatar avatar-xs rounded-circle me-2">
+                                  
                                     <a class="text-heading font-semibold" href="#">
-                                        Dribbble
+                                        @i.Jobtype
                                     </a>
                                 </td>
                                 <td>
-                                    $3.500
+                                    @i.Date.Split(" ")[0]
                                 </td>
                                 <td>
                                     <span class="badge badge-lg badge-dot">
-                                        <i class="bg-success"></i>Scheduled
+                                            <i class="bg-success"></i>@i.Total_req
                                     </span>
                                 </td>
+                                    <td>
+                                        <span class="badge badge-lg badge-dot">
+                                            <i class="bg-success"></i>@i.Total_select
+                                        </span>
+                                    </td>
                                 <td class="text-end">
-                                    <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                    <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
+                                        <a href="#" class="btn btn-sm btn-neutral" onclick="jobget('@i.Id')">Edit</a>
+                                        <a href="#" class="btn btn-sm btn-danger" onclick="jobstatus('@i.Id')">Mark as Inactive</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <img alt="..." src="https://images.unsplash.com/photo-1610271340738-726e199f0258?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
-                                    <a class="text-heading font-semibold" href="#">
-                                        Darlene Robertson
-                                    </a>
-                                </td>
-                                <td>
-                                    Apr 15, 2021
-                                </td>
-                                <td>
-                                    <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-2.png" class="avatar avatar-xs rounded-circle me-2">
-                                    <a class="text-heading font-semibold" href="#">
-                                        Netguru
-                                    </a>
-                                </td>
-                                <td>
-                                    $2.750
-                                </td>
-                                <td>
-                                    <span class="badge badge-lg badge-dot">
-                                        <i class="bg-warning"></i>Postponed
-                                    </span>
-                                </td>
-                                <td class="text-end">
-                                    <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                    <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                           }
 
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="tab-content" id="about">
+            <div class="tab-content" id="history">
                 <div class="table-responsive">
                     <table class="table table-hover table-nowrap">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Date of Joining</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Jobs Applied</th>
-                                <th scope="col">Phone</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Date of Post</th>
+                                <th scope="col">Requirement</th>
+                                <th scope="col">Selected</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
-                                    <a class="text-heading font-semibold" href="#">
-                                        Robert Fox
-                                    </a>
-                                </td>
-                                <td>
-                                    Feb 15, 2021
-                                </td>
-                                <td>
-                                    <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" class="avatar avatar-xs rounded-circle me-2">
-                                    <a class="text-heading font-semibold" href="#">
-                                        Dribbble
-                                    </a>
-                                </td>
-                                <td>
-                                    $3.500
-                                </td>
-                                <td>
-                                    <span class="badge badge-lg badge-dot">
-                                        <i class="bg-success"></i>Scheduled
-                                    </span>
-                                </td>
-                                <td class="text-end">
-                                    <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                    <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img alt="..." src="https://images.unsplash.com/photo-1610271340738-726e199f0258?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
-                                    <a class="text-heading font-semibold" href="#">
-                                        Darlene Robertson
-                                    </a>
-                                </td>
-                                <td>
-                                    Apr 15, 2021
-                                </td>
-                                <td>
-                                    <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-2.png" class="avatar avatar-xs rounded-circle me-2">
-                                    <a class="text-heading font-semibold" href="#">
-                                        Netguru
-                                    </a>
-                                </td>
-                                <td>
-                                    $2.750
-                                </td>
-                                <td>
-                                    <span class="badge badge-lg badge-dot">
-                                        <i class="bg-warning"></i>Postponed
-                                    </span>
-                                </td>
-                                <td class="text-end">
-                                    <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                    <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            @foreach (var i in ViewBag.history)
+                            {
+                                <tr>
+                                    <td>
+
+                                        <a class="text-heading font-semibold" href="#">
+                                            @i.JobTitle
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @i.JobRole
+                                    </td>
+                                    <td>
+
+                                        <a class="text-heading font-semibold" href="#">
+                                            @i.Jobtype
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @i.Date.Split(" ")[0]
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-lg badge-dot">
+                                            <i class="bg-success"></i>@i.Total_req
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-lg badge-dot">
+                                            <i class="bg-success"></i>@i.Total_select
+                                        </span>
+                                    </td>
+                                    <td class="text-end">
+                                        <a href="#" class="btn btn-sm btn-neutral" onclick="jobget('@i.Id')">Edit</a>
+                                        <a href="#" class="btn btn-sm btn-danger" onclick="jobstatus('@i.Id')">Mark as Active</a>
+ 
+                                    </td>
+                                </tr>
+                            }
+
 
                         </tbody>
                     </table>
@@ -186,77 +138,52 @@
                     <table class="table table-hover table-nowrap">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Date of Joining</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Jobs Applied</th>
-                                <th scope="col">Phone</th>
+                                <th scope="col">Job Title</th>
+                                <th scope="col">Applicant Name</th>
+                                <th scope="col">Resume</th>
+                                <th scope="col">Profile</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach(var i in ViewBag.apply){
                             <tr>
                                 <td>
-                                    <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
+                                    <img alt="..." src="~/@i.image" class="avatar avatar-sm rounded-circle me-2">
                                     <a class="text-heading font-semibold" href="#">
                                         Robert Fox
                                     </a>
                                 </td>
                                 <td>
-                                    Feb 15, 2021
+                                    @i.Name
                                 </td>
                                 <td>
-                                    <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" class="avatar avatar-xs rounded-circle me-2">
-                                    <a class="text-heading font-semibold" href="#">
-                                        Dribbble
-                                    </a>
+                                    <a href="~/@i.resume" >
+                                            <button class="btn d-inline-flex btn-sm btn-primary mx-1" type="button">
+                                                <span class=" pe-2">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                                <span>Download</span>
+                                            </button>
+                                        </a>
                                 </td>
                                 <td>
-                                    $3.500
+                                        <button class="btn d-inline-flex btn-sm btn-primary mx-1" type="button" onclick="window.location.pathname='/Home/Profile/@i.userid'">
+                                            <span class=" pe-2">
+                                                <i class="bi bi-eye"></i>
+                                            </span>
+                                            <span>View</span>
+                                        </button>
                                 </td>
-                                <td>
-                                    <span class="badge badge-lg badge-dot">
-                                        <i class="bg-success"></i>Scheduled
-                                    </span>
-                                </td>
+                                
                                 <td class="text-end">
-                                    <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                    <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
+                                    <a href="#" class="btn btn-sm btn-success" onclick="jobapply(@i.applyid)">Accept</a>
+                                        <a href="#" class="btn btn-sm btn-danger" onclick="jobreject(@i.applyid)">Reject</a>
+
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <img alt="..." src="https://images.unsplash.com/photo-1610271340738-726e199f0258?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
-                                    <a class="text-heading font-semibold" href="#">
-                                        Darlene Robertson
-                                    </a>
-                                </td>
-                                <td>
-                                    Apr 15, 2021
-                                </td>
-                                <td>
-                                    <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-2.png" class="avatar avatar-xs rounded-circle me-2">
-                                    <a class="text-heading font-semibold" href="#">
-                                        Netguru
-                                    </a>
-                                </td>
-                                <td>
-                                    $2.750
-                                </td>
-                                <td>
-                                    <span class="badge badge-lg badge-dot">
-                                        <i class="bg-warning"></i>Postponed
-                                    </span>
-                                </td>
-                                <td class="text-end">
-                                    <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                    <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            }
+                            
 
                         </tbody>
                     </table>
@@ -275,12 +202,13 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                 <form method="post">
+                   
                 <div class="modal-body">
-                    <form>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-6">
-
+                                    <input type="hidden" asp-for="Id" id="id" value="0" />
                                     <label>Job Title</label>
                                 </div>
                                 <div class="col-6">
@@ -291,11 +219,14 @@
                             <div class="row mt-2">
                                 <div class="col-6">
 
-                                    <input type="text" class="form-control" placeholder="Job Title">
+                                    <input type="text" class="form-control" placeholder="Job Title" asp-for="JobTitle" id="title">
+                                    <span asp-validation-for="JobTitle"></span>
                                 </div>
                                 <div class="col-6">
 
-                                    <input type="text" class="form-control" placeholder="Job Role">
+                                    <input type="text" class="form-control" placeholder="Job Role" asp-for="JobRole" id="role">
+                                    <span asp-validation-for="JobRole" ></span>
+
                                 </div>
                             </div>
                             <div class="row mt-2">
@@ -309,7 +240,9 @@
                             <div class="row mt-2">
                                 <div class="col-12">
 
-                                    <input type="text" style="height: 100px" class="form-control" placeholder="Job Description">
+                                    <textarea style="resize:none" type="text" style="height: 100px" class="form-control" placeholder="Job Description" asp-for="JobDescription" id="desc"></textarea>
+                                    <span asp-validation-for="JobDescription"></span>
+
                                 </div>
 
                             </div>
@@ -327,17 +260,21 @@
                             <div class="row mt-2">
                                 <div class="col-6">
 
-                                    <input type="text" class="form-control" placeholder="Job Skills(Comma Seperated)">
+                                    <input type="text" class="form-control" placeholder="Job Skills(Comma Seperated)" asp-for="JobSkill" id="skill">
+                                    <span asp-validation-for="JobSkill"></span>
+
                                 </div>
                                 <div class="col-6">
 
-                                    <input type="number" class="form-control" placeholder="Job Salary in LPA">
+                                    <input type="number" class="form-control" placeholder="Job Salary in LPA" asp-for="Jobsalary" id="salary">
+                                    <span asp-validation-for="Jobsalary" ></span>
+
                                 </div>
                             </div>
                             <div class="row mt-2">
                                 <div class="col-6">
 
-                                    <label>Job Type</label>
+                                    <label>Job Experience</label>
                                 </div>
                                 <div class="col-6">
 
@@ -347,31 +284,58 @@
                             <div class="row mt-2">
                                 <div class="col-6">
 
-                                    <select class="form-control">
-                                        <option value="any">Any</option>
-                                        <option value="fresher">Fresher</option>
-                                        <option value="mid-level">Mid-Level(0-4 yrs)</option>
-                                        <option value="experienced">Experienced(5+ yrs)</option>
+                                    <select class="form-control" asp-for="JobExperience" id="ex">
+                                        <option value="Any">Any</option>
+                                        <option value="Fresher">Fresher</option>
+                                        <option value="Mid-Level">Mid-Level(0-4 yrs)</option>
+                                        <option value="Experienced">Experienced(5+ yrs)</option>
 
                                     </select>
                                 </div>
                                 <div class="col-6">
 
-                                    <input type="number" class="form-control" placeholder="Required Employees">
+                                    <input type="number" class="form-control" placeholder="Required Employees" asp-for="Total_req" id="req">
+                                    <span asp-validation-for="Total_req"></span>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    Job Locations
+                                </div>
+                                <div class="col-6">
+                                    Job Type
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <input type="text" class="form-control" placeholder="Locations(Comma Seperated)" asp-for="Locations" id="loc">
+                                    <span asp-validation-for="Locations"></span>
+
+                                </div>
+                                <div class="col-6">
+                                    <select class="form-control" asp-for="Jobtype" id="type">
+                                        <option value="On Site">On Site</option>
+                                        <option value="Work From Home">Work From Home</option>
+                                        <option value="Internship">Internship</option>
+                                        
+
+                                    </select>
                                 </div>
                             </div>
 
-
                         </div>
-                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success">Add</button>
+                    <button type="submit" class="btn btn-success">Add</button>
                     <button type="button" class="btn btn-danger close-modal" data-dismiss="modal">Close</button>
                 </div>
+                </form>
             </div>
+             
         </div>
-
+        
     </div>
 
 
@@ -384,3 +348,6 @@
     }
 
 </style>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

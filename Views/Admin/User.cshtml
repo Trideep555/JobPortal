@@ -12,80 +12,50 @@
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Date of Joining</th>
-                    <th scope="col">Email</th>
+                    <th scope="col">Country</th>
                     <th scope="col">Jobs Applied</th>
                     <th scope="col">Phone</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
+                @for(int i=0;i<ViewBag.users.Count;i++){
                 <tr>
                     <td>
-                        <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
+                            <img alt="..." src="~/@ViewBag.users[i].Image" class="avatar avatar-sm rounded-circle me-2">
                         <a class="text-heading font-semibold" href="#">
-                            Robert Fox
+                                @(ViewBag.users[i].First_Name + ViewBag.users[i].Last_Name)
                         </a>
                     </td>
                     <td>
-                        Feb 15, 2021
+                            @ViewBag.users[i].DOJ.Split(" ")[0]
                     </td>
                     <td>
-                        <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" class="avatar avatar-xs rounded-circle me-2">
                         <a class="text-heading font-semibold" href="#">
-                            Dribbble
+                                @ViewBag.users[i].Country
                         </a>
                     </td>
                     <td>
-                        $3.500
+                            @ViewBag.apply[i]
                     </td>
                     <td>
                         <span class="badge badge-lg badge-dot">
-                            <i class="bg-success"></i>Scheduled
+                                @ViewBag.users[i].Phone
                         </span>
                     </td>
                     <td class="text-end">
-                        <a href="#" class="btn btn-sm btn-neutral">View</a>
-                        <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                            <a href="/Home/Profile/@ViewBag.users[i].UserId" class="btn btn-sm btn-neutral">View</a>
+                        <!-- <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
                             <i class="bi bi-trash"></i>
-                        </button>
+                        </button> -->
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <img alt="..." src="https://images.unsplash.com/photo-1610271340738-726e199f0258?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
-                        <a class="text-heading font-semibold" href="#">
-                            Darlene Robertson
-                        </a>
-                    </td>
-                    <td>
-                        Apr 15, 2021
-                    </td>
-                    <td>
-                        <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-2.png" class="avatar avatar-xs rounded-circle me-2">
-                        <a class="text-heading font-semibold" href="#">
-                            Netguru
-                        </a>
-                    </td>
-                    <td>
-                        $2.750
-                    </td>
-                    <td>
-                        <span class="badge badge-lg badge-dot">
-                            <i class="bg-warning"></i>Postponed
-                        </span>
-                    </td>
-                    <td class="text-end">
-                        <a href="#" class="btn btn-sm btn-neutral">View</a>
-                        <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-
+                }
+                
             </tbody>
         </table>
     </div>
     <div class="card-footer border-0 py-5">
-        <span class="text-muted text-sm">Showing 10 items out of 250 results found</span>
+        <span class="text-muted text-sm"> @ViewBag.users.Count Users</span>
     </div>
 </div>

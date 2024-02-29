@@ -9,8 +9,11 @@ namespace DREAMCatcher.Models
         public int EmployeeId { get; set; }
         [Required]
         public string? Company { get; set; }
+        
         [Required]
-        public int YOE { get; set; }
+        public string? start_date { get; set; }
+        public string? end_date { get; set; }
+
         [Required]
         public string? Role { get; set; }
 

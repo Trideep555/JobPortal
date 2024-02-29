@@ -26,19 +26,51 @@
                         <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index" asp-fragment="">Home</a>
                         </li>
+                         @if (ViewBag.view == null)
+                    {
+
                         <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index" asp-fragment="about">About</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index" asp-fragment="about">About</a>
                         </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index" asp-fragment="contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Job" asp-action="Index">Job</a>
-                    </li>
-                    <li class="nav-item ms-auto">
-                        <a class="btn btn-warning text-white" asp-area="" asp-controller="Home" asp-action="Login" >Login</a>
-                    </li>
-                    </ul>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index" asp-fragment="contact">Contact</a>
+                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                @if (User.IsInRole("User"))
+                                {
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Job" asp-action="Index">Job</a>
+                                }
+                                else
+                                {
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Job" asp-action="Activity">Activity</a>
+
+                                }
+                            </li>
+                        }
+                    }
+                     @if (ViewBag.view == null)
+                    {
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item ms-auto">
+                                <a  asp-area="" asp-controller="Home" asp-action="Profile">
+                                    <img src="~/@ViewBag.profile" class="rounded-circle mt-2" style="width: 50px;height:50px"
+                                    alt="Avatar" id="nav-pic" />
+                                </a>
+                            </li>
+
+                        }
+                        else
+                        {
+                            <li class="nav-item ms-auto">
+                                <a class="btn btn-warning text-white" asp-area="" asp-controller="Home" asp-action="Login" >Login</a>
+                            </li>
+                        }
+                    }
+                </ul>
                 </div>
             </div>
         </nav>
@@ -151,7 +183,7 @@
         <!-- Copyright -->
         <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
             © 2024 Copyright:
-            <a class="text-reset fw-bold" href="https://github.com/Priti788">Priti Ghosh</a>
+            <a class="text-reset fw-bold" href="https://github.com/Priti788">Trideep Banerjee</a>
         </div>
         <!-- Copyright -->
     </footer>

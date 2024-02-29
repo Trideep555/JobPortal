@@ -116,8 +116,9 @@ namespace DREAMCatcher.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -160,8 +161,9 @@ namespace DREAMCatcher.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -187,8 +189,12 @@ namespace DREAMCatcher.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("YOE")
-                        .HasColumnType("int");
+                    b.Property<string>("end_date")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("start_date")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -203,12 +209,19 @@ namespace DREAMCatcher.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Date")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("JobExperience")
-                        .HasColumnType("int");
+                    b.Property<string>("JobDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JobExperience")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("JobRole")
                         .IsRequired()
@@ -222,8 +235,8 @@ namespace DREAMCatcher.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Jobsalary")
-                        .HasColumnType("int");
+                    b.Property<double>("Jobsalary")
+                        .HasColumnType("float");
 
                     b.Property<string>("Jobtype")
                         .IsRequired()
@@ -239,6 +252,10 @@ namespace DREAMCatcher.Migrations
                     b.Property<int>("Total_select")
                         .HasColumnType("int");
 
+                    b.Property<string>("status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Job");
@@ -251,6 +268,9 @@ namespace DREAMCatcher.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
 
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");

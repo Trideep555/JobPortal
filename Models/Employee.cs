@@ -9,7 +9,7 @@ namespace DREAMCatcher.Models
         public int Id { get; set; }
         [Required]
         
-        public int UserId { get; set; }
+        public string? UserId { get; set; }
         [Required]
         public string? First_Name { get; set; }
         [Required]

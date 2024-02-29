@@ -11,7 +11,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Companies</span>
-                                        <span class="h3 font-bold mb-0">45</span>
+                                        <span class="h3 font-bold mb-0">@ViewBag.company</span>
                                     </div>
                                     <div class="col-auto">
                                         <div class="icon icon-shape bg-tertiary text-white text-lg rounded-circle">
@@ -34,7 +34,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Users</span>
-                                        <span class="h3 font-bold mb-0">215</span>
+                                        <span class="h3 font-bold mb-0">@ViewBag.users</span>
                                     </div>
                                     <div class="col-auto">
                                         <div class="icon icon-shape bg-primary text-white text-lg rounded-circle">
@@ -57,7 +57,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Job Postings</span>
-                                        <span class="h3 font-bold mb-0">250</span>
+                                        <span class="h3 font-bold mb-0">@ViewBag.job</span>
                                     </div>
                                     <div class="col-auto">
                                         <div class="icon icon-shape bg-info text-white text-lg rounded-circle">
@@ -80,7 +80,9 @@
                                 <div class="row">
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Applicants Selected</span>
-                                        <span class="h3 font-bold mb-0">80</span>
+                        <span class="h3 font-bold mb-0">
+                            @ViewBag.selects
+                        </span>
                                     </div>
                                     <div class="col-auto">
                                         <div class="icon icon-shape bg-warning text-white text-lg rounded-circle">

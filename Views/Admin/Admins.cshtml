@@ -1,6 +1,8 @@
-﻿@{
+﻿@model AdminVM
+@{
     Layout = "_AdminLayout";
 }
+
 
 <div class="card shadow border-0 mb-7 " style="width: 75vw;height: 80vh;">
     <div class="card-header">
@@ -15,27 +17,27 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach(var i in ViewBag.users){
                 <tr>
                     <td>
-                        <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
                         <a class="text-heading font-semibold" href="#">
-                            Robert Fox
+                            @i.Email
                         </a>
                     </td>
                     <td class="text-end">
-                        <a href="#" class="btn btn-sm btn-neutral">View</a>
-                        <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                            <i class="bi bi-trash"></i>
+                            <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                            <i class="bi bi-trash" onclick="deleteAdmin('@i.Id')"></i>
                         </button>
+                            
+
                     </td>
                 </tr>
+                }
                 
             </tbody>
         </table>
     </div>
-    <div class="card-footer border-0 py-5">
-        <span class="text-muted text-sm">Showing 10 items out of 250 results found</span>
-    </div>
+    
 </div>
 <div class="modal fade" id="EmployerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -46,24 +48,33 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form>
+            <form method="post">
+
+                <div class="modal-body">
                     <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" class="form-control" placeholder="User Name">
+                        <label>Email</label>
+                        <input type="text" class="form-control" name="Email" placeholder="Email" asp-for="Email">
+                        <span asp-validation-for="Email" class="text-danger"></span><br />
                         <label>Password</label>
-                        <input type="password" class="form-control" placeholder="password">
+                        <input type="password" class="form-control" name="Password" placeholder="Password" asp-for="Password">
+                        <span asp-validation-for="Password" class="text-danger"></span><br />
+
                         <label>Confirm Password</label>
-                        <input type="password" class="form-control" placeholder="password">
+                        <input type="password" class="form-control" placeholder="Confirm Password" asp-for="CPassword">
+                        <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
-                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success">Save</button>
+                <button type="submit" class="btn btn-success">Save</button>
                 <button type="button" class="btn btn-danger close-modal" data-dismiss="modal">Close</button>
             </div>
+                   </form>
+         
         </div>
     </div>
 </div>
 
 </div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

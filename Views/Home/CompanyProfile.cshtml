@@ -1,0 +1,205 @@
+﻿@model EmployerVM
+<div class="container emp-profile mt-4">
+    <form method="post" >
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img src="~/@ViewBag.details.Logo" alt="" id="pic" style="height:200px;" />
+                    
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h5>
+                        @ViewBag.details.Company_Name 
+                    </h5>
+                    <h6>
+                        Joined @ViewBag.details.DOJ.Split(" ")[0]
+                    </h6>
+                    <p class="proile-rating"></p>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Details</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <form method="post"><button type="submit" asp-controller="Home" asp-action="Logout" class="profile-edit-btn" name="btnAddMore" value="Logout">Logout</button></form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-work">
+                    <p>Headquarter Address </p>
+                    <a href="#"><i class="bi bi-geo-alt"></i>&nbsp;@ViewBag.details.Address</a><br />
+                    
+                    <p>Locations</p>
+                    @foreach (var skills in ViewBag.details.Locations.Split(","))
+                    {
+                        <a href="">@skills</a>
+
+                        <br />
+
+                    }
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="d-flex justify-content-end mr-3">
+                            <button class="btn d-inline-flex btn-sm btn-danger mx-1 modal-toggler2" data-toggle="modal" type="button" data-target="#AboutModal">
+                                <span class=" pe-2">
+                                    <i class="bi bi-pen"></i>
+                                </span>
+                                <span>Edit</span>
+                            </button>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Headquartes</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@ViewBag.details.Country</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Contact</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@ViewBag.details.Phone</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@ViewBag.Email</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="modal fade" id="AboutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" style="min-width:min(800px,95vw) !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Company</h4>
+                <button type="button" class="close close-modal2" data-dismiss="modal" aria-label="Close" data-target="#AboutModal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="Post" enctype="multipart/form-data" asp-controller="Home" asp-action="CompProfile">
+                <input type="hidden" asp-for="Id" value="@ViewBag.details.Id" />
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+
+                                <label>Company Name</label>
+                            </div>
+                            <div class="col-6">
+
+                                <label>Company Email</label>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <input id="id" type="hidden" asp-for="Id" value="0" />
+                                <input type="text" class="form-control" asp-for="Company_Name" placeholder="Company Name" id="com_name" value="@ViewBag.details.Company_Name">
+                                <span asp-validation-for="Company_Name" class="text-danger"></span>
+                            </div>
+                            <div class="col-6">
+
+                                <input type="email" class="form-control" id="com_email" placeholder="Comapny Email" asp-for="Email" value="@ViewBag.Email" disabled>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+
+                                <label>Address</label>
+                            </div>
+                            <div class="col-6">
+
+                                <label>Company Headquarter Country</label>
+                            </div>
+
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+
+                                <input type="text" class="form-control" placeholder="Company Address" asp-for="Address" id="com_add" value="@ViewBag.details.Address">
+                                <span asp-validation-for="Address" class="text-danger"></span>
+
+                            </div>
+                            <div class="col-6">
+
+                                <input type="text" class="form-control" placeholder="Country" asp-for="Country" id="com_country" value="@ViewBag.details.Country">
+                                <span asp-validation-for="Country" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-6">
+
+                                <label>Company Locations</label>
+                            </div>
+                            <div class="col-6">
+
+                                <label>Company Phone Number</label>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+
+                                <input type="text" class="form-control" placeholder="Locations(Comma Seperated)" asp-for="Locations" id="com_loc" value="@ViewBag.details.Locations">
+                                <span asp-validation-for="Locations" class="text-danger"></span>
+                            </div>
+                            <div class="col-6">
+
+                                <input type="tel" class="form-control" placeholder="Phone Number" asp-for="Phone" id="com_phone" value="@ViewBag.details.Phone">
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-6">
+                                <input type="file" class="form-control" id="profile-image" onchange="previewProfileImage()" style="display:none" asp-for="Logo">
+                                <button type="button" class="btn btn-primary form-control" onclick="trigger('profile-image')">Preview Image</button>
+                                <span asp-validation-for="Logo" class="text-danger"></span>
+                            </div>
+                            <div class="col-6">
+
+                                <img id="com_image" class="preview-image" src="~/@ViewBag.details.Logo" alt="Preview Profile Image">
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-danger close-modal2" data-dismiss="modal" data-target="#AboutModal">Close</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

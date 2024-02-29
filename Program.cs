@@ -2,10 +2,11 @@ using DREAMCatcher.Data;
 using DREAMCatcher.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddDirectoryBrowser();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

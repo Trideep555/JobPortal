@@ -1,4 +1,5 @@
-﻿@{
+﻿@model EmployerVM
+@{
     Layout = "_AdminLayout";
 }
 
@@ -12,81 +13,51 @@
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Date of Joining</th>
-                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
                     <th scope="col">Jobs Posted</th>
                     <th scope="col">Applicants Selected</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
+                @for(int i=0;i<ViewBag.companies.Count;i++){
                 <tr>
                     <td>
-                        <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
+                            <img alt="..." src="~/@ViewBag.companies[i].Logo" class="avatar avatar-sm rounded-circle me-2" style="width:60px">
                         <a class="text-heading font-semibold" href="#">
-                            Robert Fox
+                                @ViewBag.companies[i].Company_Name
                         </a>
                     </td>
                     <td>
-                        Feb 15, 2021
+                            @ViewBag.companies[i].DOJ.Split(" ")[0]
                     </td>
                     <td>
-                        <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" class="avatar avatar-xs rounded-circle me-2">
                         <a class="text-heading font-semibold" href="#">
-                            Dribbble
+                                @ViewBag.companies[i].Phone
                         </a>
                     </td>
                     <td>
-                        $3.500
+                        @ViewBag.jobs[i]
                     </td>
                     <td>
                         <span class="badge badge-lg badge-dot">
-                            <i class="bg-success"></i>Scheduled
+                                <i class="bg-success"></i>@ViewBag.apply[i]
                         </span>
                     </td>
                     <td class="text-end">
-                        <a href="#" class="btn btn-sm btn-neutral">View</a>
+                            <button data-toggle="modal" type="button" onclick="comget('@ViewBag.companies[i].Id')" class="btn btn-sm btn-neutral">Edit</button>
                         <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                            <i class="bi bi-trash"></i>
+                                <i class="bi bi-trash" onclick="deletecom('@ViewBag.companies[i].UserId')"></i>
                         </button>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <img alt="..." src="https://images.unsplash.com/photo-1610271340738-726e199f0258?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
-                        <a class="text-heading font-semibold" href="#">
-                            Darlene Robertson
-                        </a>
-                    </td>
-                    <td>
-                        Apr 15, 2021
-                    </td>
-                    <td>
-                        <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-2.png" class="avatar avatar-xs rounded-circle me-2">
-                        <a class="text-heading font-semibold" href="#">
-                            Netguru
-                        </a>
-                    </td>
-                    <td>
-                        $2.750
-                    </td>
-                    <td>
-                        <span class="badge badge-lg badge-dot">
-                            <i class="bg-warning"></i>Postponed
-                        </span>
-                    </td>
-                    <td class="text-end">
-                        <a href="#" class="btn btn-sm btn-neutral">View</a>
-                        <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-                
+                }
+                                
             </tbody>
         </table>
     </div>
     <div class="card-footer border-0 py-5">
-        <span class="text-muted text-sm">Showing 10 items out of 250 results found</span>
+        <span class="text-muted text-sm">@ViewBag.companies.Count Companies</span>
     </div>
 </div>
 <div class="modal fade" id="EmployerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -98,13 +69,13 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form>
+            <form method="Post" enctype="multipart/form-data">
+                <div class="modal-body">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-6">
-
-                        <label>Company Name</label>
+                         
+                                <label>Company Name</label>
                         </div>
                             <div class="col-6">
 
@@ -113,13 +84,16 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-6">
-
-                        <input type="text" class="form-control" placeholder="Company Name">
+                            <input id="id" type="hidden" asp-for="Id" value="0" /> 
+                        <input type="text" class="form-control" asp-for="Company_Name" placeholder="Company Name" id="com_name">
+                                <span asp-validation-for="Company_Name"  class="text-danger"></span>
                         </div>
                             <div class="col-6">
 
-                        <input type="email" class="form-control" placeholder="Comapny Email">
-                        </div>
+                                <input type="email" class="form-control" id="com_email" placeholder="Comapny Email" asp-for="Email">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+
+                            </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-6">
@@ -134,33 +108,18 @@
                         <div class="row mt-2">
                             <div class="col-6">
 
-                            <input type="text" class="form-control" placeholder="Company Address">
+                            <input type="text" class="form-control" placeholder="Company Address" asp-for="Address" id="com_add">
+                                <span asp-validation-for="Address" class="text-danger"></span>
+
                             </div>
                             <div class="col-6">
 
-                        <input type="text" class="form-control" placeholder="Country">
-                        </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-6">
+                                <input type="text" class="form-control" placeholder="Country" asp-for="Country" id="com_country">
+                                <span asp-validation-for="Country" class="text-danger"></span>
 
-                        <label>Company Headquarter State</label>
+                            </div>
                         </div>
-                            <div class="col-6">
-
-                            <label>Company Headquarter Address</label> </div>
-
-                    </div>
-                        <div class="row mt-2">
-                            <div class="col-6">
-
-                    <input type="text" class="form-control" placeholder="State">
-                    </div>
-                            <div class="col-6">
-
-                        <input type="text" class="form-control" placeholder="Address">
-                        </div>
-                        </div>
+                        
                         <div class="row mt-2">
                             <div class="col-6">
 
@@ -174,34 +133,42 @@
                         <div class="row mt-2">
                             <div class="col-6">
 
-                        <input type="text" class="form-control" placeholder="Locations(Comma Seperated)">
+                                <input type="text" class="form-control" placeholder="Locations(Comma Seperated)" asp-for="Locations" id="com_loc">
+                                <span asp-validation-for="Locations" class="text-danger"></span>
                         </div>
                             <div class="col-6">
 
-                        <input type="tel" class="form-control" placeholder="Phone Number">
+                                <input type="tel" class="form-control" placeholder="Phone Number" asp-for="Phone" id="com_phone">
+                                <span asp-validation-for="Phone" class="text-danger"></span>
                         </div>
                         </div>
                         <div class="row mt-4">
                             <div class="col-6">
-                        <input type="file" class="form-control" id="profile-image" onchange="previewProfileImage()" style="display:none">
+                        <input type="file" class="form-control" id="profile-image" onchange="previewProfileImage()" style="display:none" asp-for="Logo">
                         <button type="button" class="btn btn-primary form-control" onclick="trigger('profile-image')">Preview Image</button>
+                                <span asp-validation-for="Logo" class="text-danger"></span>
                             </div>
                             <div class="col-6">
 
-                        <img id="preview-profile-image" class="preview-image" src="#" alt="Preview Profile Image" style="display:none">
+                        <img id="com_image" class="preview-image" src="#" alt="Preview Profile Image" style="display:none" >
                         </div>
                         </div>
 
 
                     </div>
-                </form>
+                
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success">Login</button>
+                <button type="submit" class="btn btn-success">Save</button>
                 <button type="button" class="btn btn-danger close-modal" data-dismiss="modal">Close</button>
+
             </div>
+            </form>
         </div>
     </div>
 </div>
 
 </div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
